@@ -5,7 +5,7 @@ spring:
   application:
     name: microservicio-users
   datasource:
-   driver-class-name: com.mysql.cj.jdbc.driver
+   driver-class-name: com.mysql.cj.jdbc.Driver
    url: jdbc:mysql://loscalhost:3306/aauca_noticias
    username: root
    password:
