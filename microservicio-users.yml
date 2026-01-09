@@ -6,7 +6,7 @@ spring:
     name: microservicio-users
   datasource:
    driver-class-name: com.mysql.cj.jdbc.Driver
-   url: jdbc:mysql://loscalhost:3306/aauca_noticias
+   url: jdbc:mysql://localhost:3306/aauca_noticias
    username: root
    password:
    type: com.zaxxer.hikari.HikariDataSource
@@ -16,7 +16,7 @@ spring:
     hibernate:
       ddl-auto: update
     database: mysql
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
     properties:
       hibernate:
