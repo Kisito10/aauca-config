@@ -5,15 +5,29 @@ spring:
   application:
     name: microservicio-gateway
   cloud:
+    config:
+      enabled: true
     gateway:
       discovery:
         locator:
-          enable: true
+          enabled: true
       routes:
         - id: user
           uri: http://localhost:9090
           predicates:
            - Path=/user/**
+      routes:
+        - id: user
+          uri: http://localhost:9091
+          predicates:
+           - Path=/seccion/**
+      routes:
+        - id: user
+          uri: http://localhost:9093
+          predicates:
+           - Path=/noticia/**
+           
+           
            
         
             
