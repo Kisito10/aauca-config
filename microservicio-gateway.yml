@@ -6,8 +6,7 @@ spring:
     name: microservicio-gateway
   cloud:
     config:
-      enabled: true
-      import: configserver
+      enabled: false
     gateway:
       discovery:
         locator:
