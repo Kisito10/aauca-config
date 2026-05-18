@@ -4,30 +4,40 @@ server:
 spring:
   application:
     name: microservicio-gateway
+
   cloud:
-    config:
-      enabled: false
     gateway:
       discovery:
         locator:
           enabled: true
+          lower-case-service-id: true
       routes:
-        - id: user
+
+        # ── Usuarios (9090) ───────────────────────────────────────────────────
+        - id: microservicio-users
           uri: http://localhost:9090
           predicates:
-           - Path=/user/**
-      routes:
-        - id: user
+            - Path=/api/user/**, /api/solicitudes/**
+
+        # ── Secciones (9091) ──────────────────────────────────────────────────
+        - id: microservicio-secciones
           uri: http://localhost:9091
           predicates:
-           - Path=/seccion/**
-      routes:
-        - id: user
-          uri: http://localhost:9093
+            - Path=/api/seccion/**
+
+        # ── Noticias (9092) ───────────────────────────────────────────────────
+        - id: microservicio-noticias
+          uri: http://localhost:9092
           predicates:
-           - Path=/noticia/**
-           
-           
-           
-        
-            
+            - Path=/api/noticia/**, /api/lectura/**, /api/destinatario/**
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
