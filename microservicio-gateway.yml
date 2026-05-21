@@ -11,25 +11,22 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
-      routes:
 
-        # ── Usuarios (9090) ───────────────────────────────────────────────────
+      routes:
         - id: microservicio-users
           uri: http://localhost:9090
           predicates:
-            - Path=/api/user/**, /api/solicitudes/**
+            - Path=/api/user/**, /api/solicitudes/**, /api/backup/**
 
-        # ── Secciones (9091) ──────────────────────────────────────────────────
         - id: microservicio-secciones
           uri: http://localhost:9091
           predicates:
             - Path=/api/seccion/**
 
-        # ── Noticias (9092) ───────────────────────────────────────────────────
         - id: microservicio-noticias
           uri: http://localhost:9092
           predicates:
-            - Path=/api/noticia/**, /api/lectura/**, /api/destinatario/**
+            - Path=/api/noticia/**, /api/lectura/**, /api/destinatario/**, /uploads/**
 
 eureka:
   instance:
@@ -38,6 +35,10 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
+jwt:
+  secret: aauca-noticias-secret-key-minimo-32-caracteres-2026
+
 logging:
   level:
-    org.springframework.cloud.gateway: DEBUG
+    org.springframework.cloud.gateway: INFO
+    com.microservicio.gateway: DEBUG
