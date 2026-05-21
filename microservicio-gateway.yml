@@ -7,11 +7,6 @@ spring:
 
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-
       routes:
         - id: microservicio-users
           uri: http://localhost:9090
