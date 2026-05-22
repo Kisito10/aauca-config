@@ -4,20 +4,35 @@ server:
 spring:
   application:
     name: microservicio-gateway
-
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:4200"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            exposedHeaders:
+              - Authorization
+            allowCredentials: true
+            maxAge: 3600
       routes:
         - id: microservicio-users
           uri: http://localhost:9090
           predicates:
             - Path=/api/user/**, /api/solicitudes/**, /api/backup/**
-
         - id: microservicio-secciones
           uri: http://localhost:9091
           predicates:
             - Path=/api/seccion/**
-
         - id: microservicio-noticias
           uri: http://localhost:9092
           predicates:
