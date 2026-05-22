@@ -15,9 +15,11 @@ spring:
     hibernate:
       ddl-auto: validate
     show-sql: true
+    open-in-view: false
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
   sql:
     init:
       mode: always
@@ -52,4 +54,5 @@ eureka:
 logging:
   level:
     org.springframework: INFO
+    org.springframework.security: DEBUG
     com.zaxxer.hikari: INFO
