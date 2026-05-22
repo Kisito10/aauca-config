@@ -6,24 +6,6 @@ spring:
     name: microservicio-gateway
   cloud:
     gateway:
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins:
-              - "http://localhost:4200"
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - PATCH
-              - DELETE
-              - OPTIONS
-            allowedHeaders:
-              - "*"
-            exposedHeaders:
-              - Authorization
-            allowCredentials: true
-            maxAge: 3600
       routes:
         - id: microservicio-users
           uri: http://localhost:9090
