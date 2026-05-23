@@ -1,13 +1,14 @@
 server:
   port: 9090
+
 spring:
   application:
-    name: microservicio-users
+    name: microservicio-usuarios
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/residencia_noticias?useSSL=false&serverTimezone=UTC
     username: root
-    password:
+    password: 
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       maximum-pool-size: 5
@@ -25,32 +26,37 @@ spring:
       mode: always
   mail:
     host: smtp.gmail.com
-    port: 587
+    port: 465
     username: aaucanews@gmail.com
-    password: isxc erpe trto bwkj
+    password: cejiyveuttonyfkbfe
     properties:
       mail:
         smtp:
           auth: true
-          starttls:
+          ssl:
             enable: true
-            required: true
-          connectiontimeout: 5000
-          timeout: 5000
-          writetimeout: 5000
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+          connectiontimeout: 10000
+          timeout: 10000
+          writetimeout: 10000
   security:
     user:
       name: disabled
       password: disabled
+
 jwt:
   secret: aauca-noticias-secret-key-minimo-32-caracteres-2026
   expiration: 86400000
+
 eureka:
   instance:
     hostname: localhost
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+
 logging:
   level:
     org.springframework: INFO
