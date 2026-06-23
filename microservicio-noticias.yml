@@ -1,19 +1,16 @@
 server:
   port: 9092
-
 spring:
   application:
-    name: microservicio-noticias  # ← corregido, decía microservicio-users
-
+    name: microservicio-noticias
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/residencia_noticias?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://reseau.proxy.rlwy.net:50065/railway?useSSL=false&serverTimezone=UTC
     username: root
-    password:
+    password: EAyUBbUHuOsQRhZyXWQOYhzjmaXhsOPM
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       maximum-pool-size: 5
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -22,19 +19,15 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        format_sql: true  # ← corregido: guion bajo no guion
-
-# ← JWT añadido — misma clave que en microservicio-users
+        format_sql: true
 jwt:
-  secret: aauca-noticias-secret-key-minimo-32-caracteres-2026
-
+  secret: ${JWT_SECRET:aauca-noticias-secret-key-minimo-32-caracteres-2026}
 eureka:
   instance:
     hostname: localhost
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
-
 logging:
   level:
     org.springframework: INFO
