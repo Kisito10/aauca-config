@@ -6,31 +6,56 @@ spring:
     name: microservicio-gateway
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            exposedHeaders: "Authorization"
+            allowCredentials: true
+      
       routes:
+        # MICROSERVICIO DE USUARIOS
         - id: microservicio-users
-          uri: http://localhost:9090
+          uri: lb://MICROSERVICIO-USERS  # 👈 Usa el nombre con el que se registra en Eureka
           predicates:
-            - Path=/api/user/**, /api/solicitudes/**, /api/backup/**
+            - Path=/api/user/**,/api/solicitudes/**,/api/backup/**
+          metadata:
+            sensitiveHeaders: ""
+
+        # MICROSERVICIO DE SECCIONES
         - id: microservicio-secciones
-          uri: http://localhost:9091
+          uri: lb://MICROSERVICIO-SECCIONES
           predicates:
             - Path=/api/seccion/**
+          metadata:
+            sensitiveHeaders: ""
+
+        # MICROSERVICIO DE NOTICIAS
         - id: microservicio-noticias
-          uri: http://localhost:9092
+          uri: lb://MICROSERVICIO-NOTICIAS
           predicates:
-            - Path=/api/noticia/**, /api/lectura/**, /api/destinatario/**, /uploads/**
+            - Path=/api/noticia/**,/api/lectura/**,/api/destinatario/**,/uploads/**
+          metadata:
+            sensitiveHeaders: ""
 
 eureka:
   instance:
     hostname: localhost
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://localhost:8761/eureka/
 
 jwt:
   secret: aauca-noticias-secret-key-minimo-32-caracteres-2026
 
 logging:
   level:
-    org.springframework.cloud.gateway: INFO
+    org.springframework.cloud.gateway: TRACE
     com.microservicio.gateway: DEBUG
