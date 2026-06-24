@@ -25,7 +25,7 @@ spring:
       mode: always
   mail:
     host: smtp.gmail.com
-    port: 465
+    port: 587
     username: aaucanews@gmail.com
     password: vwwg zved ezwe nbes
     properties:
