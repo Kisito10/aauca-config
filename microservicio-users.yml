@@ -69,7 +69,7 @@ eureka:
     hostname: microservicio-users.onrender.com
     prefer-ip-address: false
   client:
-    enabled: true
+    enabled: false
     register-with-eureka: true
     fetch-registry: true
     service-url:
