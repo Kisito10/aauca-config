@@ -1,8 +1,10 @@
 server:
   port: 9091
+
 spring:
   application:
     name: microservicio-secciones
+  
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://reseau.proxy.rlwy.net:50065/railway?useSSL=false&serverTimezone=UTC
@@ -11,6 +13,11 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       maximum-pool-size: 5
+      minimum-idle: 2
+      connection-timeout: 20000
+      idle-timeout: 300000
+      max-lifetime: 1200000
+  
   jpa:
     hibernate:
       ddl-auto: update
@@ -20,20 +27,52 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  
   security:
     user:
       name: disabled
       password: disabled
+
 eureka:
   instance:
     hostname: microservicio-secciones.onrender.com
+    prefer-ip-address: false
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
   client:
+    enabled: true
+    register-with-eureka: true
+    fetch-registry: true
     service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+      defaultZone: ${EUREKA_URL:https://microservicio-de-registro.onrender.com/eureka}
+    registry-fetch-interval-seconds: 10
+    instance-info-replication-interval-seconds: 10
+
 jwt:
   secret: ${JWT_SECRET:aauca-noticias-secret-key-minimo-32-caracteres-2026}
   expiration: 86400000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+
 logging:
   level:
+    root: INFO
     org.springframework: INFO
+    org.springframework.web: INFO
+    org.hibernate: WARN
     com.zaxxer.hikari: INFO
+    com.mysql.cj.jdbc: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
